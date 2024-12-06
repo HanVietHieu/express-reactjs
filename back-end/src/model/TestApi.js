@@ -1,13 +1,17 @@
-import express from "express";
-const app = express();
+import { connection } from "../services/database";
 
-export const test_api = () => {
-  return app.get("/", (req, res) => {
-    const data = {
-      name: "hieu",
-      fullName: "Hán Việt Hiếu",
-    };
-    res.send(data);
-    console.log("nani333".red);
-  });
+export const test_api = async (req, res) => {
+  const { id, name } = req.query;
+  const sql = "UPDATE user SET userName = ? WHERE id = ?";
+  try {
+    console.log(name.red);
+    await connection.query(sql, [name, id], (err, results) => {
+      return res.status(200).json({
+        success: true,
+        data: results,
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
