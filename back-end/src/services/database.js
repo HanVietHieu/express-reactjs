@@ -8,7 +8,7 @@ const connection = mysql.createConnection({
   database: "crud",
   connectionLimit: 10,
   maxIdle: 10,
-  idleTimeout: 60000,
+  idleTimeout: 10000,
 });
 
 // Kết nối đến MySQL
