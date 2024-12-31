@@ -80,14 +80,14 @@ input[type="number"] {
 }
 
 // Autofill
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px $shop-bg inset;
-  transition: background-color 600000s 0s, color 600000s 0s;
-  -webkit-text-fill-color: $text-color !important;
-}
+// input:-webkit-autofill,
+// input:-webkit-autofill:hover,
+// input:-webkit-autofill:focus,
+// input:-webkit-autofill:active {
+//   -webkit-box-shadow: 0 0 0 30px $shop-bg inset;
+//   transition: background-color 600000s 0s, color 600000s 0s;
+//   -webkit-text-fill-color: $text-color !important;
+// }
 
 .ant-input-affix-wrapper {
   background-color: transparent !important;
