@@ -20,22 +20,19 @@ connection.connect((err) => {
   console.log("Connected to MySQL");
 });
 
-const queryDb = async (queryString, functionGetDataDb = () => {}) => {
-  try {
-    await connection.query(queryString, (err, results) => {
-      if (err) {
-        console.error("Error executing query:", err);
-        return;
-      }
-      functionGetDataDb(results);
-      return results;
-    });
-  } catch (error) {
-    return console.log(error.red);
-  }
-};
+// const queryDb = async (queryString, functionGetDataDb = () => {}) => {
+//   try {
+//     await connection.query(queryString, (err, results) => {
+//       if (err) {
+//         console.error("Error executing query:", err);
+//         return;
+//       }
+//       functionGetDataDb(results);
+//       return results;
+//     });
+//   } catch (error) {
+//     return console.log(error.red);
+//   }
+// };
 
 export { connection };
-
-// Đóng kết nối
-// connection.end();
