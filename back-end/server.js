@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import router from "./src/routers";
 const app = express();
-const port = configDotenv().parsed.PORT || 3000;
+const port = configDotenv().parsed.PORT || 3036;
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -14,8 +14,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
-// 
-app.use("/v1", router);
+
+app.use("/shop-v1", router);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
