@@ -7,12 +7,12 @@ export const resStatus = {
   errorAuthen: 401, //Yêu cầu cần xác thực (ví dụ: res.status(401).send("Authentication required")).
   errorServer: 500,
 };
-
+//mã hóa
 export const cryptoPassWord = (param) => {
   const cryptoPw = CryptoJS.AES.encrypt(JSON.stringify(param), configDotenv().parsed.KEY_PW).toString();
   return cryptoPw;
 }
-
+//giải mã
 export const decryptedPassWord = (param) => {
   var bytes  = CryptoJS.AES.decrypt(param, configDotenv().parsed.KEY_PW);
   return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));

@@ -1,9 +1,11 @@
 import { decryptedPassWord, resStatus } from "../helper";
 import { connectionDb } from "../services/database";
+import jwt from "jsonwebtoken";
+import { configDotenv } from "dotenv";
 
 export const login = async (req, res) => {
     const { user_name, pass_word } = req.body;
-    console.log("nani12".red, pass_word);
+
     if (!user_name || !pass_word) {
         return res.status(resStatus.error).json({
             success: false,
@@ -24,27 +26,31 @@ export const login = async (req, res) => {
                     message: "Error"
                 })
             }
-            const  passWordDb = results[0]?.pass_word
-            console.log(11111111111112, results[0]);
+            const passWordDb = results[0]?.pass_word || ""
 
             const decryPw = decryptedPassWord(passWordDb)
 
             if (decryPw === pass_word) {
-               return res.status(200).json({
+                const token = jwt.sign({
+                    data: results[0]
+                }, configDotenv().parsed.KEY_PW, { expiresIn: '30d' });
+                // try {
+                //     var decoded = jwt.verify('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJ1c2VyX25hbWUiOiJhZG1pbjEiLCJwYXNzX3dvcmQiOiJVMkZzZEdWa1gxOUFnVVRpODlQR01haVZSNU90NlRkNmZKbURhUFNrdUg4PSIsInBob25lX251bWJlciI6IjEiLCJhZGRyZXNzIjpudWxsLCJnZW5kZXIiOm51bGwsImZ1bGxfbmFtZSI6bnVsbCwiYWdlIjpudWxsLCJlbWFpbCI6ImJsdWVza3kuYXF1YXJpdXNAZ21haWwuY29tIiwidG9rZW4iOm51bGwsImNyZWF0ZV9hdCI6IjIwMjUtMDEtMDNUMTY6MTY6MTIuMDAwWiJ9LCJpYXQiOjE3MzU5MjE3NzgsImV4cCI6MTczNTkyMTgwOH0.oGVD4leflE3swU8pjmIvTz5LxzfhaEVaWpT8Mv4cWSM', configDotenv().parsed.KEY_PW);
+                //     console.log(11112, decoded);
+                    
+                // } catch(err) {
+                //     console.log("error".red,err);
+                //   }
+                return res.status(200).json({
                     success: true,
                     message: "Login success full",
+                    data: results[0],
+                    token
                 });
             }
-            console.log("nani".red, decryPw);
-            console.log("nani2".red, pass_word);
-            console.log(decryPw === pass_word);
-            
-            
-
         })
     } catch (error) {
         console.log("error".red, error);
-
     }
 
 
