@@ -1,5 +1,7 @@
-import { resStatus } from "../helper";
+import { cryptoPassWord, resStatus } from "../helper";
 import { connectionDb } from "../services/database";
+import { configDotenv } from "dotenv";
+var CryptoJS = require("crypto-js");
 
 export const register = async (req, res) => {
   const { user_name, pass_word, phone_number, email, confirm_password } =
@@ -27,13 +29,14 @@ export const register = async (req, res) => {
   }
 
   const database = await connectionDb();
-  const createData = async (number) => {
+  const createData = async () => {
     const sql =
       "INSERT INTO user(user_name, pass_word, phone_number, email) VALUE (?,?,?,?)";
+    const cryptoPw = cryptoPassWord(pass_word);
 
     await database.query(
       sql,
-      [user_name, pass_word, phone_number, email],
+      [user_name, cryptoPw, phone_number, email],
       (err, results) => {
         if (err) {
           res.status(401).json({
