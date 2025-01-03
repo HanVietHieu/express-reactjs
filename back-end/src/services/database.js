@@ -1,7 +1,7 @@
 const mysql = require("mysql2");
 
 // Tạo kết nối
-const connection = mysql.createConnection({
+const dbConfig = {
   host: "localhost",
   user: "root",
   password: "abcd1234",
@@ -9,33 +9,21 @@ const connection = mysql.createConnection({
   connectionLimit: 10,
   maxIdle: 10,
   idleTimeout: 10000,
-});
-
-// Kết nối đến MySQL
-connection.connect((err) => {
-  if (err) {
-    console.error("Error connecting to MySQL:", err);
-    return;
-  }
-  console.log("Connected to MySQL");
-});
-
-const queryDb = async (queryString, functionGetDataDb = () => {}) => {
-  try {
-    await connection.query(queryString, (err, results) => {
-      if (err) {
-        console.error("Error executing query:", err);
-        return;
-      }
-      functionGetDataDb(results);
-      return results;
-    });
-  } catch (error) {
-    return console.log(error.red);
-  }
 };
 
-export { connection };
+const connectionDb = async () => {
+  try {
+    const connection = await mysql.createConnection(dbConfig);
+    connection.connect((err) => {
+      if(err) {
+        console.log("error connect db".red,err);
+      }
+    })
+    return connection;
+  } catch (error) {
+    console.error('Error connecting to the database:'.red, error);
+    process.exit(1);
+  }
+}
 
-// Đóng kết nối
-// connection.end();
+export { connectionDb };
