@@ -2,9 +2,9 @@ import { applyMiddleware, combineReducers, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { thunk } from "redux-thunk";
 import { serviceMiddleware } from "./middlewares";
-import { reducerAirtimeBitel } from "./future/reducer";
+import { reducerUser } from "./future/account/reducer";
 const reducers = combineReducers({
-  dataBitel: reducerAirtimeBitel
+  reducerUser: reducerUser
 });
 
 export function configureStore(initialState = {}) {

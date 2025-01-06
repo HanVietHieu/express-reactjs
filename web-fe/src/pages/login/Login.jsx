@@ -6,25 +6,31 @@ import { showToast } from "../../utils/helper";
 import { TYPE_SHOW_NOTI } from "../../utils/const";
 import { postDataApi } from "../../service/api";
 import { API_PATHS } from "../../service/api-path/apiPaths";
+import { useDispatch } from "react-redux";
+import { setDataUserInfo } from "../../redux/future/account/action";
 
 export default function Login() {
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
-  const [passWord, setPassWord] = useState("")
+  const [passWord, setPassWord] = useState("");
+  const dispatch = useDispatch();
 
   const handleSubmitForm = async () => {
     if (!userName || !passWord) {
-      return showToast(TYPE_SHOW_NOTI.err, "Please enter complete information")
+      return showToast(TYPE_SHOW_NOTI.err, "Please enter complete information");
     }
 
     const body = {
       user_name: userName,
-      pass_word: passWord
+      pass_word: passWord,
+    };
+    const dataLogin = await postDataApi(API_PATHS.login, body);
+    if (dataLogin?.data?.success) {
+      dispatch(setDataUserInfo(dataLogin));
+      navigate(PATHS.HOME_PAGE)
     }
-    const dataLogin = await postDataApi(API_PATHS.login, body)
     console.log("dataLogin", dataLogin);
   };
-
 
   const handleToSignUp = async () => {
     navigate(PATHS.REGISTER);

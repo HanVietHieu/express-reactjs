@@ -4,6 +4,7 @@ import MainLayout from "../layout/MainLayout";
 import ErrorPage from "../pages/error/ErrorPage";
 import Register from "../pages/register/Register";
 import Login from "../pages/login/Login";
+import Profile from "../pages/profile/Profile";
 
 export const RouterList = [
   {
@@ -21,6 +22,10 @@ export const RouterList = [
         path: PATHS.LOGIN,
         element: <Login />,
       },
+      {
+        path: PATHS.PROFILE,
+        element: <Profile />
+      }
     ],
     errorElement: <ErrorPage />,
   },
