@@ -16,7 +16,6 @@ export default function Profile() {
   const navigate = useNavigate();
   const data = useSelector(getUser) || "";
   const userInfo = data?JSON.parse(data) : {};
-  console.log("data", data);
   const dispatch = useDispatch()
 
   const handleClick = (link) => {

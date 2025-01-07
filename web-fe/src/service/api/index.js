@@ -5,9 +5,15 @@ const instance = axios.create({
     timeout: 20000,
 });
 
-axios.interceptors.request.use(
+instance.interceptors.request.use(
     function (config) {
-        return config.data;
+        
+        if (localStorage.getItem('user_info')) {
+            const user = localStorage.getItem('user_info')
+            const parseUser = JSON.parse(user);
+            config.headers.Authorization = `Bearer ${parseUser.token}`;
+        }
+        return config;
     },
     function (error) {
         return Promise.reject(error);

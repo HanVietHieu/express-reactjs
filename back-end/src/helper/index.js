@@ -17,3 +17,9 @@ export const decryptedPassWord = (param) => {
   var bytes  = CryptoJS.AES.decrypt(param, configDotenv().parsed.KEY_PW);
   return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 }
+
+export const TYPE_EDIT_PROFILE = {
+  profile: 1,
+  avt: 2,
+  password: 3
+}
