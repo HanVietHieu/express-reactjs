@@ -20,15 +20,15 @@ app.use(cors());
 app.use("/shop-v1", router);
 
 app.get("/", (req, res) => {
-  var data = "naniiiii"
-  var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), configDotenv().parsed.KEY_PW).toString();
-console.log(1111, ciphertext);
-console.log(98,  configDotenv().parsed.KEY_PW);
+//   var data = "naniiiii"
+//   var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), configDotenv().parsed.KEY_PW).toString();
+// console.log(1111, ciphertext);
+// console.log(98,  configDotenv().parsed.KEY_PW);
 
-  // Decrypt
-var bytes  = CryptoJS.AES.decrypt(ciphertext, configDotenv().parsed.KEY_PW);
-var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-console.log(222, decryptedData);
+//   // Decrypt
+// var bytes  = CryptoJS.AES.decrypt(ciphertext, configDotenv().parsed.KEY_PW);
+// var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+// console.log(222, decryptedData);
 
   res.send("Hello World!");
 });

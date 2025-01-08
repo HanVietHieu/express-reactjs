@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import EditProfile from "./components/EditProfile";
 import EditAvt from "./components/EditAvt";
 import ChangePw from "./components/ChangePw";
+import { getUser } from "../../redux/selector";
+import { useSelector } from "react-redux";
 
 const tabs = [
   {
@@ -39,6 +41,15 @@ const tabs = [
 
 export default function Profile() {
   const [tabActive, setTabActive] = useState(tabs[0]);
+  const [dataUser, setDataUser] = useState({})
+  const user = useSelector(getUser);
+  useEffect(() => {
+    if (!user) {
+      setDataUser({});
+    }
+    const data = JSON.parse(user)
+    setDataUser(data)
+  },[user])
   console.log(tabActive);
 
   return (
@@ -85,9 +96,9 @@ export default function Profile() {
                 </h3>
                 <div className="mb-2">
                   {tabActive.id === 1 ? (
-                    <EditProfile />
+                    <EditProfile dataUser={dataUser}/>
                   ) : tabActive.id === 2 ? (
-                    <EditAvt />
+                    <EditAvt dataUser={dataUser}/>
                   ) : (
                     <ChangePw />
                   )}

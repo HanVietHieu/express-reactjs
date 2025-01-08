@@ -25,7 +25,7 @@ export default function Profile() {
 const handleLogout = () => {
   setIsModalLogout(false);
   localStorage.removeItem('user_info')
-  dispatch(setDataUserInfo({}))
+  dispatch(setDataUserInfo(""))
 }
 
 

@@ -20,7 +20,7 @@ export const login = async (req, res) => {
     try {
         database.query(sql, [user_name], (err, results) => {
             if (err) {
-                return req.status(401).json({
+                return res.status(401).json({
                     success: false,
                     message: "Error",
                 });
@@ -38,6 +38,13 @@ export const login = async (req, res) => {
                 const data = results.map(({ id, pass_word, create_at, ...rest }) => rest);
 
                 const token = jwt.sign(data[0], 'your-secret-key', { expiresIn: '30d' });
+                
+                database.query("UPDATE user SET token=? WHERE user_name = ?", [token, user_name], (errToken, resultToken) => {
+                    if (errToken) {
+                        console.log("add token false".red, errToken);
+                    }
+                })
+
                 return res.status(200).json({
                     success: true,
                     message: "Login success full",

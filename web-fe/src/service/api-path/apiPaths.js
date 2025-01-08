@@ -1,5 +1,6 @@
 export const API_PATHS = {
     register: "/register",
     login: "login",
-    updateProfile: "/update-profile"
+    updateProfile: "/update-profile",
+    updateAvt: "/upload"
 }

@@ -7,8 +7,11 @@ const initialState = {
 export const reducerUser = (state = initialState, action) => {
     switch (action.type) {
         case USER:
-            const data= JSON.stringify(action.payload?.data?.data)
-            localStorage.setItem('user_info', data)
+            let data = "";
+            if (action.payload?.data?.data) {
+                 data = JSON.stringify(action.payload?.data?.data)
+                localStorage.setItem('user_info', data)
+            }
             return {
                 ...state,
                 user: data

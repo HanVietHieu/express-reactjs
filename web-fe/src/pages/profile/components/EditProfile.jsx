@@ -1,13 +1,14 @@
-import React, { use, useEffect } from "react";
+import React, { useEffect } from "react";
 import { TYPE_EDIT_PROFILE, TYPE_GERNDER, TYPE_SHOW_NOTI } from "../../../utils/const";
 import styled from "styled-components";
 import { showToast } from "../../../utils/helper";
 import { postDataApi } from "../../../service/api";
 import { API_PATHS } from "../../../service/api-path/apiPaths";
-import { useSelector } from "react-redux";
-import { getUser } from "../../../redux/selector";
+import { useDispatch } from "react-redux";
+import { setDataUserInfo } from "../../../redux/future/account/action";
+import _ from "lodash";
 
-export default function EditProfile() {
+export default function EditProfile({dataUser = {}}) {
   const [userName, setUserName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
@@ -15,24 +16,24 @@ export default function EditProfile() {
   const [gender, setGender] = React.useState(TYPE_GERNDER.default);
   const [fullName, setFullName] = React.useState("");
   const [age, setAge] = React.useState("");
-  const user = useSelector(getUser);
+  const dispatch = useDispatch();
+console.log("dataUser", dataUser);
 
   useEffect(() => {
-    if (!user) {
-      return null;
+    if (_.isEmpty(dataUser)) {
+      return;
     }
+    
+    setUserName(dataUser.user_name);
+    setEmail(dataUser.email);
+    setPhone(dataUser.phone_number);
+    setAddress(dataUser.address);
+    setGender(dataUser.gender);
+    setFullName(dataUser.full_name);
+    setAge(dataUser.age);
+  }, [dataUser]);
 
-    const data = JSON.parse(user);
-    setUserName(data.user_name);
-    setEmail(data.email);
-    setPhone(data.phone_number);
-    setAddress(data.address);
-    setGender(data.gender);
-    setFullName(data.fullName);
-    setAge(data.age);
-  }, [user]);
-
-  const handleSubmitForm = () => {
+  const handleSubmitForm = async() => {
     if (!userName || !email || !phone || !fullName) {
      return showToast(TYPE_SHOW_NOTI.err, "Please enter complete information");
     }
@@ -46,8 +47,13 @@ export default function EditProfile() {
       full_name: fullName,
       type: TYPE_EDIT_PROFILE.profile
     };
-    const dataApi = postDataApi(API_PATHS.updateProfile, body);
-    console.log("dataApi", dataApi);
+    const dataApi = await postDataApi(API_PATHS.updateProfile, body);
+    if (dataApi?.data?.success) {
+      dispatch(setDataUserInfo(dataApi));
+     return showToast(TYPE_SHOW_NOTI.success, dataApi.data.message);
+    }
+
+    showToast(TYPE_SHOW_NOTI.err, dataApi?.data?.message || "Error edit profile");
   };
 
   return (
@@ -128,7 +134,7 @@ export default function EditProfile() {
           <select
             onChange={(e) => setGender(e.target.value)}
             defaultValue={" "}
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option value={0}>Gender</option>
             <option value={1}>Male</option>

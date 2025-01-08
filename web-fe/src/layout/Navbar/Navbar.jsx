@@ -4,6 +4,8 @@ import { FaCartShopping } from "react-icons/fa6";
 import { FaCaretDown } from "react-icons/fa";
 import DarkMode from "./DarkMode";
 import Profile from "../Profile/Profile";
+import { PATHS } from "../../config/path";
+import { useNavigate } from "react-router-dom";
 
 const Menu = [
   {
@@ -22,12 +24,12 @@ const Menu = [
     link: "/#",
   },
   {
-    id: 3,
+    id: 4,
     name: "Mens Wear",
     link: "/#",
   },
   {
-    id: 3,
+    id: 5,
     name: "Electronics",
     link: "/#",
   },
@@ -52,6 +54,7 @@ const DropdownLinks = [
 ];
 
 const Navbar = ({ handleOrderPopup = () => {} }) => {
+  const navigate = useNavigate()
   return (
     <div className="shadow-md bg-white dark:bg-gray-900 dark:text-white duration-200 relative z-40">
       {/* upper Navbar */}
@@ -61,10 +64,10 @@ const Navbar = ({ handleOrderPopup = () => {} }) => {
             {/* Darkmode Switch */}
             <DarkMode />
             <div>
-              <a href="#" className="font-bold text-2xl sm:text-3xl flex gap-2">
+              <div onClick={() => navigate(PATHS.HOME_PAGE)} className="font-bold text-2xl sm:text-3xl flex gap-2 cursor-pointer">
                 <img src={Logo} alt="Logo" className="w-10" />
                 Shopsy
-              </a>
+              </div>
             </div>
           </div>
 

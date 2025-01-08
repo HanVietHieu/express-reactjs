@@ -106,12 +106,12 @@ input[type="number"] {
   }
 }
 
-.ant-input-affix-wrapper-status-error:not(
-    .ant-input-affix-wrapper-disabled
-  ):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper,
-.ant-input-affix-wrapper-status-error:not(
-    .ant-input-affix-wrapper-disabled
-  ):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper:hover {
+.ant-input-affix-wrapper-status-error:not(.ant-input-affix-wrapper-disabled):not(
+    .ant-input-affix-wrapper-borderless
+  ).ant-input-affix-wrapper,
+.ant-input-affix-wrapper-status-error:not(.ant-input-affix-wrapper-disabled):not(
+    .ant-input-affix-wrapper-borderless
+  ).ant-input-affix-wrapper:hover {
   background-color: transparent;
   border: none;
   box-shadow: 0 0 0 2px $shop-red inset;
@@ -500,39 +500,72 @@ input[type="number"] {
   object-fit: cover;
 }
 
-.align-center{
+.align-center {
   align-items: center;
 }
 
-
-.flex-center, .flex-lc {
+.flex-center,
+.flex-lc {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 }
 
-.btn_register{
-    width: 108px;
-    height: 40px;
-    margin-right: 16px;
-    border-radius: 8px;
-    background: #ff7707;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+.btn_register {
+  width: 108px;
+  height: 40px;
+  margin-right: 16px;
+  border-radius: 8px;
+  background: #ff7707;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
-.color-colorforcus{
+.color-colorforcus {
   color: #0f0be4;
 }
 
-@media(min-width: 992px) {
-  .btn_register{
-    &:hover{
+.btn-update {
+  width: 130px;
+  height: 48px;
+  margin: 0px 0px 20px 0;
+
+  border-radius: 6px;
+  cursor: pointer;
+  background: #ff7707;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-cancel {
+  width: 130px;
+  height: 48px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid #ff7707;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  color: #ff7707;
+}
+
+@media (min-width: 992px) {
+  .btn_register {
+    &:hover {
       background-color: #ee954b;
       transition: 0.3s ease-in-out;
     }
+  }
+
+  .btn-update:hover,.btn-cancel:hover {
+    background-color: #e36b09;
+    color: white;
   }
 }
