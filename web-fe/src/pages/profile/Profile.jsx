@@ -5,6 +5,7 @@ import EditAvt from "./components/EditAvt";
 import ChangePw from "./components/ChangePw";
 import { getUser } from "../../redux/selector";
 import { useSelector } from "react-redux";
+import _ from "lodash";
 
 const tabs = [
   {
@@ -45,11 +46,15 @@ export default function Profile() {
   const user = useSelector(getUser);
   useEffect(() => {
     if (!user) {
-      setDataUser({});
+     return setDataUser({});
     }
     const data = JSON.parse(user)
     setDataUser(data)
   },[user])
+
+  if(_.isEmpty(user)){
+    return null
+  }
 
   return (
     <div className="container mt-5 mb-5 min-h-[50vh]">

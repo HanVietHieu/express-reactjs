@@ -35,7 +35,7 @@ export const login = async (req, res) => {
             const decryPw = decryptedPassWord(passWordDb);
 
             if (decryPw === pass_word) {
-                const data = results.map(({ id, pass_word, create_at, ...rest }) => rest);
+                const data = results.map(({ pass_word, create_at, ...rest }) => rest);
 
                 const token = jwt.sign(data[0], 'your-secret-key', { expiresIn: '30d' });
                 

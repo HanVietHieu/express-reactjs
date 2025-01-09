@@ -25,12 +25,14 @@ export default function Login() {
       pass_word: passWord,
     };
     const dataLogin = await postDataApi(API_PATHS.login, body);
-    
+
     if (dataLogin?.data?.success) {
       dispatch(setDataUserInfo(dataLogin?.data?.data || {}));
-      navigate(PATHS.HOME_PAGE)
+      showToast(TYPE_SHOW_NOTI.success, dataLogin?.data?.message);
+      return navigate(PATHS.HOME_PAGE);
     }
-    console.log("dataLogin", dataLogin);
+
+    return showToast(TYPE_SHOW_NOTI.err, dataLogin?.data?.message);
   };
 
   const handleToSignUp = async () => {

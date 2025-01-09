@@ -26,6 +26,7 @@ const handleLogout = () => {
   setIsModalLogout(false);
   localStorage.removeItem('user_info')
   dispatch(setDataUserInfo(""))
+  navigate(PATHS.HOME_PAGE)
 }
 
 

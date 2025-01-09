@@ -48,7 +48,7 @@ export default function EditProfile({dataUser = {}}) {
     };
     const dataApi = await postDataApi(API_PATHS.updateProfile, body);
     if (dataApi?.data?.success) {
-      dispatch(setDataUserInfo(dataApi));
+      dispatch(setDataUserInfo(dataApi?.data?.data || {}));
      return showToast(TYPE_SHOW_NOTI.success, dataApi.data.message);
     }
 
