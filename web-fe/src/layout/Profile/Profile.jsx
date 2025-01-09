@@ -59,7 +59,7 @@ const handleLogout = () => {
               <img
                 className="box-user-action-avt-img"
                 alt=""
-                src="https://www.caythuocdangian.com/wp-content/uploads/anh-gai-xinh-che-mat-55.jpg"
+                src={`http://localhost:3036${userInfo.avt}`}
               />
             ) : (
               <>

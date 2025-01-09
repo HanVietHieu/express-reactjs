@@ -38,9 +38,10 @@ export const uploadAvt = async (req, res) => {
       }
       const user = req?.user?.user_name
       const sql = 'UPDATE user SET avt=? where user_name=?'
+      const filePath = `/uploads/${req.file.filename}`;
       database.query(
         sql,
-        [req.file?.filename, user],
+        [filePath, user],
         (err, result) => {
           if (err) {
             console.log(err);
@@ -53,6 +54,7 @@ export const uploadAvt = async (req, res) => {
           res.status(200).json({
             message: 'File uploaded successfully!',
             file: req.file,
+            filePath: filePath
           });
         }
       )

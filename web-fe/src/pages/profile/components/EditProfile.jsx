@@ -17,7 +17,6 @@ export default function EditProfile({dataUser = {}}) {
   const [fullName, setFullName] = React.useState("");
   const [age, setAge] = React.useState("");
   const dispatch = useDispatch();
-console.log("dataUser", dataUser);
 
   useEffect(() => {
     if (_.isEmpty(dataUser)) {

@@ -50,7 +50,6 @@ export default function Profile() {
     const data = JSON.parse(user)
     setDataUser(data)
   },[user])
-  console.log(tabActive);
 
   return (
     <div className="container mt-5 mb-5 min-h-[50vh]">

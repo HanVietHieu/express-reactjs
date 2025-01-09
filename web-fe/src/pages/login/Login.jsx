@@ -25,8 +25,9 @@ export default function Login() {
       pass_word: passWord,
     };
     const dataLogin = await postDataApi(API_PATHS.login, body);
+    
     if (dataLogin?.data?.success) {
-      dispatch(setDataUserInfo(dataLogin));
+      dispatch(setDataUserInfo(dataLogin?.data?.data || {}));
       navigate(PATHS.HOME_PAGE)
     }
     console.log("dataLogin", dataLogin);

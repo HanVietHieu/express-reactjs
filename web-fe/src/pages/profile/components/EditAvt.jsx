@@ -4,11 +4,16 @@ import iconPhoto from "../../../assets/svg/Group 10397.svg";
 import axios from "axios";
 import { TYPE_SHOW_NOTI } from "../../../utils/const";
 import { showToast } from "../../../utils/helper";
+import { useDispatch } from "react-redux";
+import { setDataUserInfo } from "../../../redux/future/account/action";
 
 export default function EditAvt({ dataUser = {} }) {
   const [fileAvt, setFileAvt] = useState(null);
   const [urlAvt, setUrlAvt] = useState("");
   const ref = useRef(null);
+  const dispatch = useDispatch()
+  console.log(dataUser);
+
 
   const handleChangeAvtInput = (e) => {
     const file = e.target.files[0];
@@ -42,14 +47,21 @@ export default function EditAvt({ dataUser = {} }) {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${parseUser.token}`,
           },
-          
+
         },
       );
-      if(response?.status == 200){
+      if (response?.status == 200) {
+        const newDataUser = {
+          ...dataUser,
+          avt: response?.data?.filePath
+        }
+        console.log("newDataUser", newDataUser);
+        
+        dispatch(setDataUserInfo(newDataUser))
         showToast(TYPE_SHOW_NOTI.success, response?.data?.message)
       }
     } catch (error) {
-      
+
       showToast(TYPE_SHOW_NOTI.err, "Error edit avatar")
     }
   };
@@ -58,7 +70,7 @@ export default function EditAvt({ dataUser = {} }) {
     <div className="container mt-5 pt-5 mb-5 ">
       <div className="relative w-[160px] h-[160px] ">
         <img
-          src={urlAvt || dataUser.avt || avatarDefault}
+          src={urlAvt || (dataUser.avt ? `http://localhost:3036${dataUser.avt}` : avatarDefault)}
           onError={(event) => {
             const img = event.currentTarget;
             img.src = avatarDefault;

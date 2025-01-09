@@ -4,6 +4,7 @@ import color from "colors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import path from 'path';
 import router from "./src/routers";
 var CryptoJS = require("crypto-js");
 
@@ -11,12 +12,12 @@ const app = express();
 const port = configDotenv().parsed.PORT || 3036;
 
 // parse application/x-www-form-urlencoded
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(cors());
-
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 app.use("/shop-v1", router);
 
 app.get("/", (req, res) => {
