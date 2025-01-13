@@ -64,3 +64,38 @@ export const login = async (req, res) => {
         console.log("error".red, error);
     }
 };
+
+export const loginWidthGoogle = async (req, res) => {
+    const { credential } = req.body;
+    if(!credential) {
+        return res.status(400).json({
+            success: false,
+            message: "Error login width google"
+        })
+    }
+
+    const decodedToken = jwt.decode(credential);
+    console.log(111122222333333, decodedToken);
+    const database = await connectionDb();
+
+    const sql = 'INSERT INTO user(user_name, full_name, email, avt, user_width) VALUE (?, ?, ?)';
+    database.query(sql, [decodedToken?.name, decodedToken?.name, decodedToken?.email, decodedToken?.picture, 2], (error, result) => {
+        if (error) {
+            res.status(401).json({
+              success: false,
+              message: error,
+            });
+            return console.log(error);
+          }
+
+          return res.status(200).json({
+            success: true,
+            message: "Login success full",
+          });
+    })
+
+    return res.status(200).json({
+        success: true,
+        message: "login width google"
+    })
+}
