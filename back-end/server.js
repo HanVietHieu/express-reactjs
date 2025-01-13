@@ -7,6 +7,7 @@ import cors from "cors";
 import path from 'path';
 import router from "./src/routers";
 var CryptoJS = require("crypto-js");
+const passport = require('./src/config/passport');
 
 const app = express();
 const port = configDotenv().parsed.PORT || 3036;
@@ -19,6 +20,11 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 app.use("/shop-v1", router);
+
+// login google
+app.use(passport.initialize());
+app.use(passport.session());
+// end loggin
 
 app.get("/", (req, res) => {
 //   var data = "naniiiii"
