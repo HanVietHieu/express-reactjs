@@ -4,5 +4,6 @@ export const API_PATHS = {
     updateProfile: "/update-profile",
     updateAvt: "/upload",
     changePw: "/change-pass-word",
-    loginGoogle: "/login-google"
+    loginGoogle: "/login-google",
+    getBanner: "/get-banner"
 }

@@ -1,5 +1,5 @@
 import express from "express";
-import { test_api, test_get_api, register, login, loginWidthGoogle, editProfile, uploadAvt } from "../controller";
+import { test_api, test_get_api, register, login, loginWidthGoogle, editProfile, uploadAvt, getBanner } from "../controller";
 import { verifyAuthorization } from "../helper";
 import { changePassWord } from "../controller";
 const router = express.Router();
@@ -14,5 +14,6 @@ router.post("/api/login-google", loginWidthGoogle)
 router.post("/api/update-profile", verifyAuthorization, editProfile)
 router.post("/api/upload", verifyAuthorization, uploadAvt)
 router.post("/api/change-pass-word", verifyAuthorization, changePassWord)
+router.get("/api/get-banner", getBanner)
 
 export default router;

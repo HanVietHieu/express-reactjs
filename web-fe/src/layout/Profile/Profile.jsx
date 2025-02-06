@@ -71,7 +71,7 @@ const handleLogout = () => {
             )}
           </div>
         </div>
-        <div className="absolute z-[9999] hidden group-hover:block w-[200px] rounded-md bg-white p-2 text-black shadow-md right-0 top-10">
+        <div className="absolute z-[9999] hidden group-hover:block w-[200px] rounded-md bg-white p-2 text-black shadow-md right-0">
           <ul>
             <li>
               <div
